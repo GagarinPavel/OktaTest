@@ -44,10 +44,11 @@ namespace OktaTest.Controllers
         }
 
         [Authorize]
-        public IActionResult Profile()
+        public IActionResult Prof()
         {
             return View(HttpContext.User.Identity);
         }
+
 
         [HttpPost]
         public IActionResult SignOut()
@@ -59,6 +60,18 @@ namespace OktaTest.Controllers
         CookieAuthenticationDefaults.AuthenticationScheme,
                     },
                             new AuthenticationProperties { RedirectUri = "/Home/" });
+        }
+
+        [Authorize]
+        public IActionResult Profile()
+        {
+            return View(HttpContext.User.Claims);
+        }
+
+        [Authorize]
+        public IActionResult Authorized()
+        {
+            return View();
         }
     }
 }

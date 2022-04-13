@@ -25,12 +25,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li><a class="nav-link text-dark" asp-controller="Home" asp-action="Profile" id="profile-button">Profile</a></li>
+                                                <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Authorized">Authorized</a>
+                        </li>
                     </ul>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <ul class="nav navbar-nav navbar-right">
                             <li><p class="navbar-text">Hello, @User.Identity.Name</p></li>
-                            <li><a class="nav-link" asp-controller="Home" asp-action="Profile" id="profile-button">Profile</a></li>
                             <li>
                                 <form class="form-inline" asp-controller="Home" asp-action="SignOut" method="post">
                                     <button type="submit" class="nav-link btn btn-link text-dark" id="logout-button">Sign Out</button>
