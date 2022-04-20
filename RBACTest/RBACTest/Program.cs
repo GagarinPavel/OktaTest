@@ -16,8 +16,10 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
+builder.Services.AddHttpClient();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<Auth0Service>(service => new Auth0Service(Configuration));
+builder.Services.AddSingleton(Configuration);
+builder.Services.AddTransient<Auth0Service>();
 
 var app = builder.Build();
 
