@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBACTest", "RBACTest\RBACTest.csproj", "{05C5A15C-C026-4239-BE1E-1A5DEF0AE47E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05C5A15C-C026-4239-BE1E-1A5DEF0AE47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C5A15C-C026-4239-BE1E-1A5DEF0AE47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C5A15C-C026-4239-BE1E-1A5DEF0AE47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C5A15C-C026-4239-BE1E-1A5DEF0AE47E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E65BDECF-F111-4032-B45D-A6E40B5FB7BA}
+	EndGlobalSection
+EndGlobal
