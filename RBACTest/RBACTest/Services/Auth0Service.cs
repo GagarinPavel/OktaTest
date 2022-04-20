@@ -16,20 +16,18 @@ namespace RBACTest.Services
 
         public string audience { get; set; }
 
-        private readonly IHttpClientFactory _httpClientFactory;
-        public Auth0Service(IHttpClientFactory httpClientFactory, IConfiguration config)
+        public Auth0Service(IConfiguration config)
         {
             this.adress = config["Auth0:Adress"];
             this.clientId = config["Auth0:ClientId"];
             this.clietnSecret = config["Auth0:ClientSecret"];
             this.audience = config["Auth0:Audience"];
-            _httpClientFactory = httpClientFactory;
             GetToken();
         }
 
         private void GetToken()
         {
-            HttpClient client = _httpClientFactory.CreateClient();
+            HttpClient client = new HttpClient();
 
             var data = new Dictionary<string, string>
             {
@@ -44,7 +42,7 @@ namespace RBACTest.Services
 
         public async Task<IEnumerable<User>> GetUsers(CancellationToken ct)
         {
-            var _httpClient = _httpClientFactory.CreateClient();
+            var _httpClient = new HttpClient();
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{audience}users");
 
             requestMessage.Headers.Add("Authorization", $"Bearer {token?.Access_token}");
@@ -54,7 +52,7 @@ namespace RBACTest.Services
 
         public async Task<IEnumerable<Role>> GetRoles(CancellationToken ct)
         {
-            var _httpClient = _httpClientFactory.CreateClient();
+            var _httpClient = new HttpClient();
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{audience}roles");
 
             requestMessage.Headers.Add("Authorization", $"Bearer {token?.Access_token}");
@@ -64,7 +62,7 @@ namespace RBACTest.Services
 
         public async Task CreateRole(string name, CancellationToken ct, string description = "")
         {
-            HttpClient client = _httpClientFactory.CreateClient();
+            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token?.Access_token}");
             var data = new Dictionary<string, string>
             {
@@ -76,7 +74,7 @@ namespace RBACTest.Services
 
         public async Task AssignToRole(string roleId, string[] usersIds, CancellationToken ct)
         {
-            HttpClient client = _httpClientFactory.CreateClient();
+            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token?.Access_token}");
             var data = new Dictionary<string, string[]>
             {
