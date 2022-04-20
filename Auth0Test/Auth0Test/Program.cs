@@ -21,6 +21,16 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CreateAccess", policy =>
+                      policy.RequireClaim("permissions", "create:term"));
+    options.AddPolicy("UpdateAccess", policy =>
+                      policy.RequireClaim("permissions", "update:term"));
+    options.AddPolicy("DeleteAccess", policy =>
+                      policy.RequireClaim("permissions", "delete:term"));
+});
+
 builder.Services
     .AddAuth0WebAppAuthentication(options => {
         options.Domain = Configuration["Auth0:Domain"];
