@@ -11,11 +11,25 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin();
+    });
+});
+
 builder.Services
     .AddAuth0WebAppAuthentication(options => {
         options.Domain = Configuration["Auth0:Domain"];
         options.ClientId = Configuration["Auth0:ClientId"];
-    });
+        options.ClientSecret = Configuration["Auth0:ClientSecret"];
+    }).WithAccessToken(options =>
+    {
+        options.Audience = Configuration["Auth0:Audience"];
+    }); ;
 
 var app = builder.Build();
 
@@ -29,6 +43,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCors("AllowAll");
 
 app.UseRouting();
 

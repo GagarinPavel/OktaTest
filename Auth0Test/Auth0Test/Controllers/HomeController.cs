@@ -45,7 +45,7 @@ namespace Auth0Test.Controllers
             return View(User.Claims);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Authorized()
         {
             return View();
