@@ -1,0 +1,14 @@
+{
+  "name": "scrypttest",
+  "version": "1.0.0",
+  "description": "test-firebase-scrypt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-scrypt": "^2.2.0"
+  }
+}
