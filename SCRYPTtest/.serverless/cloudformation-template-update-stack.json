@@ -2,75 +2,6 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "The AWS CloudFormation template for this Serverless application",
   "Resources": {
-    "ServerlessDeploymentBucket": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "BucketEncryption": {
-          "ServerSideEncryptionConfiguration": [
-            {
-              "ServerSideEncryptionByDefault": {
-                "SSEAlgorithm": "AES256"
-              }
-            }
-          ]
-        }
-      }
-    },
-    "ServerlessDeploymentBucketPolicy": {
-      "Type": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Ref": "ServerlessDeploymentBucket"
-        },
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "s3:*",
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":s3:::",
-                      {
-                        "Ref": "ServerlessDeploymentBucket"
-                      },
-                      "/*"
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":s3:::",
-                      {
-                        "Ref": "ServerlessDeploymentBucket"
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "Condition": {
-                "Bool": {
-                  "aws:SecureTransport": false
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
     "AppLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
@@ -158,16 +89,14 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/PhoneEmailTest/Prod/1651222712889-2022-04-29T08:58:32.889Z/PhoneEmailTest.zip"
+          "S3Bucket": "dev.uw1.linqpal-serverlessdeployment",
+          "S3Key": "serverless/PhoneEmailTest/Prod/1651233804829-2022-04-29T12:03:24.829Z/PhoneEmailTest.zip"
         },
-        "Handler": "app/app.handler",
+        "Handler": "app.handler",
         "Runtime": "nodejs14.x",
         "FunctionName": "PhoneEmailTest-Prod-app",
-        "MemorySize": 256,
-        "Timeout": 30,
+        "MemorySize": 128,
+        "Timeout": 6,
         "Role": {
           "Fn::GetAtt": [
             "IamRoleLambdaExecution",
@@ -179,14 +108,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionNGaOjkmSQgIuC2i9ruLkE1QfBf52v2PPUYvqgGLG0Vk": {
+    "AppLambdaVersion79QjuEZfIV0z8g9oju7tUVmZKOeTC62F81VW1DbSY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "9+rVVGNpfVNeNPgFJ0uA/OCsfC+u4HJ28vS/FsW/lss="
+        "CodeSha256": "lOy9xC3oWvHQ2ko65QjzvXSWVVCT70YZSfRLvXoM1x4="
       }
     },
     "ApiGatewayRestApi": {
@@ -404,7 +333,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1651222709327": {
+    "ApiGatewayDeployment1651233783907": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -459,9 +388,7 @@
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
-      "Value": {
-        "Ref": "ServerlessDeploymentBucket"
-      },
+      "Value": "dev.uw1.linqpal-serverlessdeployment",
       "Export": {
         "Name": "sls-PhoneEmailTest-Prod-ServerlessDeploymentBucketName"
       }
@@ -469,7 +396,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionNGaOjkmSQgIuC2i9ruLkE1QfBf52v2PPUYvqgGLG0Vk"
+        "Ref": "AppLambdaVersion79QjuEZfIV0z8g9oju7tUVmZKOeTC62F81VW1DbSY"
       },
       "Export": {
         "Name": "sls-PhoneEmailTest-Prod-AppLambdaFunctionQualifiedArn"

@@ -1,14 +1,16 @@
 service: PhoneEmailTest
+
 provider:
   name: aws
   runtime: nodejs14.x
   stage: Prod
   region: us-west-1
-  memorySize: 256
-  timeout: 30
+  memorySize: 128
+  deploymentBucket: 
+    name: dev.uw1.linqpal-serverlessdeployment
 functions:
   app:
-    handler: app/app.handler
+    handler: app.handler
     events: 
       - http: 
           path: /

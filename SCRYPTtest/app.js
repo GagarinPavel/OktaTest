@@ -10,7 +10,7 @@ const dbURI = "mongodb+srv://superUser123:4jEimm5LRYRFMzPw@cluster0.yjdhl.mongod
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
-    //app.listen(3000)
+    //app.listen(5000);
   })
   .catch(err => console.log(err));
 
@@ -26,7 +26,7 @@ router.post("/checkHash", (req, res) => {
   if (isValid) {
     User.findOne({"Email":{$eq:req.body.email}}).then(result => {
       if(result==null) res.send("Error");
-      else checkHash(req.body.password, result.HashPass, result.HashSalt).then(isValid=>{
+      else checkHash(req.body.password, result.HashPass, result.HashSalt).then(isValid => {
         isValid? res.send(result.ExternalId): res.send("invalid");
      });
     })
@@ -54,14 +54,14 @@ router.post("/checkPhone", (req, res) => {
   }
 });
 
-router.get('/add-user', (req, res) => {
+router.get('/dddd', (req, res) => {
   const user = new User({
     ExternalId: "extId",
     Email: "test2@test.com",
     HashPass: "JQRFu6aeWV/Z+bLP5RD48qLj/Ia+tqJJ/UGvcmu/ZeiQ6fT/6iPex7zWL+ImgYCi4EdFcITzaHqHnXZ5vGeeAA==",
     HashSalt: "mcnPvf9P9L8vYQ==",
     IsMigrate: false,
-  })
+  });
 
   user.save()
     .then(result => {
